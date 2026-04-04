@@ -65,6 +65,24 @@ def main():
     # print(sample_model_vec(25))
 
     # print(sample_model_vec([20, 25, 30]))
+    
+    plot_x = np.linspace(15, 35, 40)
+    print(plot_x)
+    
+    plot_y = sample_model(plot_x)
+    
+    print(plot_y)
+    
+    plt.figure(figsize=(9, 6))
+    plt.plot(plot_x, plot_y)
+
+    # aggiungo linee guida lungo entrambi gli assi
+    plt.grid()
+
+    # assegno etichette comprensibili agli assi
+    plt.xlabel("Temperatura (°C)")
+    plt.ylabel("Picco consumi (GW)")
+    plt.show()
 
 
 
