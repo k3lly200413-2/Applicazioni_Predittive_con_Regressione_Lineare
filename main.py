@@ -5,7 +5,7 @@ from urllib.request import urlretrieve
 
 def make_model(alpha, beta):
     def model(x):
-        return alpha * beta - 3
+        return alpha * x + beta
     return model
 
 def setup():
@@ -54,7 +54,19 @@ def main():
     
     # print(np.corrcoef(data_summer.T))
     
-    print(sample_model(np.array([20, 25, 30])))
+    # print(sample_model(np.array([20, 25, 30])))
+    
+    sample_model = make_model(0.2, -3)
+    
+    # print(sample_model(np.array([20, 25, 30])))
+    
+    sample_model_vec = np.vectorize(sample_model)
+    
+    # print(sample_model_vec(25))
+
+    # print(sample_model_vec([20, 25, 30]))
+
+
 
 if __name__ == "__main__":
      main()
