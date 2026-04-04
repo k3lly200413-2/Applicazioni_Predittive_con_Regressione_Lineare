@@ -118,8 +118,27 @@ def main():
     # ax.set_xlabel("Temperatura (°C)")
     # ax.set_ylabel("Picco consumi (GW)")
     
-    plot_model_on_data(temp, demand, sample_model, "Test Model")
-
+    # plot_model_on_data(temp, demand, sample_model, "Test Model")
+    
+    predicted_demand = sample_model(temp)
+    
+    error = predicted_demand - demand
+    
+    print(np.mean(np.square(error)))
+    
+    new_model = make_model(0.15, -1)
+    
+    print(new_model(np.array([20, 25, 30])))
+    
+    
+    plot_model_on_data(temp, demand, new_model, "New Model")
+    
+    new_predict_demand = new_model(temp)
+    
+    error = new_predict_demand - demand
+    
+    print("New Error => ", np.mean(np.square(error)))
+    
     plt.show()
     
 
