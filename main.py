@@ -17,6 +17,10 @@ def plot_model_on_data(x, y, model=None, title=None, ax=None):
     ax.set_title(title)
     ax.set_xlabel("Temperatura (°C)")
     ax.set_ylabel("Picco consumi (GW)")
+    
+# Uniform Linear Regression _ Mean Squared Error
+def ulr_mse(x, y, alpha, beta):
+    return np.mean(np.square(alpha * x + beta - y))
 
 # 0.2 and 3 are arbitrary values
 
