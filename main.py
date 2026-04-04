@@ -1,6 +1,11 @@
 import numpy as np, pandas as pd, matplotlib.pyplot as plt, os
 from urllib.request import urlretrieve
 
+# 0.2 and 3 are arbitrary values 
+
+def sample_model(x):
+    return 0.2 * x - 3
+
 def setup():
     
     DATA_URL = "https://github.com/datascienceunibo/dialab2024/raw/main/Regressione_Lineare/power.csv"
@@ -40,13 +45,14 @@ def main():
     temp = data_summer["temp"].values
     demand = data_summer["demand"].values
     
-    print(np.mean((temp - temp.mean()) * (demand - demand.mean())) / (temp.std() * temp.std()))
+    # print(np.mean((temp - temp.mean()) * (demand - demand.mean())) / (temp.std() * temp.std()))
     
     # same as
     # Transposed because we need the values to be on thw row and not on the column
     
-    print(np.corrcoef(data_summer.T))
+    # print(np.corrcoef(data_summer.T))
     
+    print(sample_model(np.array([20, 25, 30])))
 
 if __name__ == "__main__":
      main()
