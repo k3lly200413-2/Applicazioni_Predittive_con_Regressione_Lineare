@@ -3,8 +3,10 @@ from urllib.request import urlretrieve
 
 # 0.2 and 3 are arbitrary values 
 
-def sample_model(x):
-    return 0.2 * x - 3
+def make_model(alpha, beta):
+    def model(x):
+        return alpha * beta - 3
+    return model
 
 def setup():
     
