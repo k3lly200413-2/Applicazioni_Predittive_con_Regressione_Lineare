@@ -30,13 +30,23 @@ def main():
     # data_summer["temp"].plot.hist(bins=20)
     # data_summer["demand"].plot.hist(bins=20)
     
-    data_summer.plot.scatter("temp", "demand")
+    # data_summer.plot.scatter("temp", "demand")
     
-    plt.show()
+    # plt.show()
     
-    print(data["temp"].describe())
-    print(data["demand"].describe())
+    # print(data["temp"].describe())
+    # print(data["demand"].describe())
 
+    temp = data_summer["temp"].values
+    demand = data_summer["demand"].values
+    
+    print(np.mean((temp - temp.mean()) * (demand - demand.mean())) / (temp.std() * temp.std()))
+    
+    # same as
+    # Transposed because we need the values to be on thw row and not on the column
+    
+    print(np.corrcoef(data_summer.T))
+    
 
 if __name__ == "__main__":
-    main()
+     main()
