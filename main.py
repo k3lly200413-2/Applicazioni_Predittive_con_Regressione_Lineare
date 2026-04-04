@@ -117,6 +117,8 @@ def main():
     # ax.grid()
     # ax.set_xlabel("Temperatura (°C)")
     # ax.set_ylabel("Picco consumi (GW)")
+    
+    plot_model_on_data(temp, demand, sample_model, "Test Model")
 
     plt.show()
     
