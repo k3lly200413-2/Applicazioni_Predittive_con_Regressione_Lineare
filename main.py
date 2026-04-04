@@ -1,6 +1,23 @@
 import numpy as np, pandas as pd, matplotlib.pyplot as plt, os
 from urllib.request import urlretrieve
 
+
+def plot_model_on_data(x, y, model=None, title=None, ax=None):
+    if ax is None:
+        plt.figure(figsize=(9,6))
+        ax = plt.gca()
+    ax.scatter(x, y)
+    if model is not None:
+        xlim, ylim = ax.get_xlim(), ax.get_ylim()
+        plot_x = np.linspace(xlim[0], xlim[1], 100)
+        plot_y = model(plot_x)
+        ax.plot(plot_x, plot_y, lw=3, c="red")
+        ax.set_xlim(xlim); ax.set_ylim(ylim)
+    ax.grid()
+    ax.set_title(title)
+    ax.set_xlabel("Temperatura (°C)")
+    ax.set_ylabel("Picco consumi (GW)")
+
 # 0.2 and 3 are arbitrary values
 
 def make_model(alpha, beta):
@@ -84,22 +101,22 @@ def main():
     # plt.ylabel("Picco consumi (GW)")    
     
     # returns Axes as an object apparently allows us to create multiple graphs in one
-    ax = plt.gca()
+    # ax = plt.gca()
 
-    ax.scatter(temp, demand)
+    # ax.scatter(temp, demand)
     
-    xlim = ax.get_xlim()
-    ylim = ax.get_ylim()
+    # xlim = ax.get_xlim()
+    # ylim = ax.get_ylim()
     
-    # lw = line width
-    ax.plot(plot_x, plot_y, lw=3, c="red")
+    # # lw = line width
+    # ax.plot(plot_x, plot_y, lw=3, c="red")
     
-    ax.set_xlim(xlim)
-    ax.set_ylim(ylim)
+    # ax.set_xlim(xlim)
+    # ax.set_ylim(ylim)
     
-    ax.grid()
-    ax.set_xlabel("Temperatura (°C)")
-    ax.set_ylabel("Picco consumi (GW)")
+    # ax.grid()
+    # ax.set_xlabel("Temperatura (°C)")
+    # ax.set_ylabel("Picco consumi (GW)")
 
     plt.show()
     
