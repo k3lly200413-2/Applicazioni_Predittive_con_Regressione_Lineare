@@ -2,6 +2,18 @@ import numpy as np, pandas as pd, matplotlib.pyplot as plt, os
 from urllib.request import urlretrieve
 
 
+def ulr_gd_step(x, y, alpha, beta, step_size):
+    
+    error = (alpha * x + beta) - y
+    
+    d_alpha = 2 * (error * x).mean()
+    d_beta = 2 * error.mean()
+    
+    new_alpha = alpha - step_size * d_alpha
+    new_beta = beta - step_size * d_beta
+    
+    return new_alpha, new_beta
+
 def plot_model_on_data(x, y, model=None, title=None, ax=None):
     if ax is None:
         plt.figure(figsize=(9,6))
@@ -140,7 +152,7 @@ def main():
     print(new_model(np.array([20, 25, 30])))
     
     
-    plot_model_on_data(temp, demand, new_model, "New Model")
+    # plot_model_on_data(temp, demand, new_model, "New Model")
     
     new_predict_demand = new_model(temp)
     
@@ -148,7 +160,36 @@ def main():
     
     # set di parametri 1: alpha=0.2, beta=-3
     # set di parametri 2: alpha=0.15, beta=-1
-    ulr_mse(temp, demand, [0.2, 0.15], [-3, -1])
+    # ulr_mse(temp, demand, [0.2, 0.15], [-3, -1])
+    
+    plot_alpha = np.linspace(-.3, .3, 101)
+    plot_beta = np.linspace(-4, 4, 101)
+    
+    plot_mse = ulr_mse(temp, demand, plot_alpha[:, None], plot_beta[None, :])
+    
+    # ax = plt.subplot(projection="3d")
+    # ax.plot_wireframe(plot_alpha[:, None], plot_beta[None, :], plot_mse, rstride=5, cstride=5)
+    # ax.set_xlabel("alpha")
+    # ax.set_ylabel("beta")
+    # ax.set_zlabel("MSE")
+    
+    alpha = 0
+    beta = 0
+    
+    alpha_vals = [alpha]
+    beta_vals = [beta]
+    
+    for k in range(20):
+        alpha, beta = ulr_gd_step(temp, demand, alpha, beta, 0.001)
+        alpha_vals.append(alpha); alpha_vals.append(beta)
+    
+    print(alpha, beta)
+    
+    finalModel = make_model(alpha, beta)
+    
+    plot_model_on_data(temp, demand, finalModel, "Final Form")
+    
+    print(ulr_mse(temp, demand, alpha, beta))
     
     plt.show()
     
