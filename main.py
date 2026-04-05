@@ -18,7 +18,7 @@ def plot_model_on_data(x, y, model=None, title=None, ax=None):
     ax.set_xlabel("Temperatura (°C)")
     ax.set_ylabel("Picco consumi (GW)")
     
-# # Uniform Linear Regression _ Mean Squared Error
+# 
 # def ulr_mse(x, y, alpha, beta):
 #     return np.mean(np.square(alpha * x + beta - y))
 
@@ -146,7 +146,9 @@ def main():
     
     error = new_predict_demand - demand
     
-    print("New Error => ", np.mean(np.square(error)))
+    # set di parametri 1: alpha=0.2, beta=-3
+    # set di parametri 2: alpha=0.15, beta=-1
+    ulr_mse(temp, demand, [0.2, 0.15], [-3, -1])
     
     plt.show()
     
