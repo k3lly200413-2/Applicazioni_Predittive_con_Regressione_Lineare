@@ -69,6 +69,13 @@ def main():
     
     data_summer = data.loc[data.index.month.isin([6, 7, 8])]
     
+    data_winter = data.loc[data.index.month.isin([12, 1, 2])]
+    
+    # plt.scatter(data_winter["temp"].values, data_winter["demand"].values)
+    
+    winter_temp = data_winter["temp"].values
+    winter_demand = data_winter["demand"].values
+    
     # print(data_summer.head(3))
     # print(data_summer.tail(3))
     
@@ -179,20 +186,22 @@ def main():
     alpha_vals = [alpha]
     beta_vals = [beta]
     
-    for k in range(20):
-        alpha, beta = ulr_gd_step(temp, demand, alpha, beta, 0.001)
+    for k in range(300):
+        alpha, beta = ulr_gd_step(winter_temp, winter_demand, alpha, beta, 0.01)
         alpha_vals.append(alpha); alpha_vals.append(beta)
     
     print(alpha, beta)
     
     finalModel = make_model(alpha, beta)
     
-    plot_model_on_data(temp, demand, finalModel, "Final Form")
+    plot_model_on_data(winter_temp, winter_demand, finalModel, "Final Form")
     
-    print(ulr_mse(temp, demand, alpha, beta))
+    print(ulr_mse(winter_temp, winter_demand, alpha, beta))
+    
+    print(finalModel(-5))
     
     plt.show()
     
 
 if __name__ == "__main__":
-     main()
+    main()
