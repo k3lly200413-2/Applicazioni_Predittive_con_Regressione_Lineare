@@ -2,6 +2,15 @@ import numpy as np, pandas as pd, matplotlib.pyplot as plt, os
 from urllib.request import urlretrieve
 
 
+def lr_gd_step(X1, y, theta, step_size):
+    error = (X1 @ theta) - y
+    
+    # mean(1) 1 is the axis
+    grad = 2 * (X1.T * error).mean(1)
+    
+    newTheta = theta - step_size * grad
+    return newTheta
+
 # def ulr_gd_step(x, y, alpha, beta, step_size):
     
 #     error = (alpha * x + beta) - y
@@ -269,6 +278,19 @@ def main():
     # could also be 
     
     # X1[:5] @ theta # Used to calculate multiple lines
+    
+    # print(X1.shape)
+    
+    thetaIniziale = np.ones_like(X1.shape[1])
+    
+    theta_vals = [thetaIniziale]
+    
+    for _ in range(50):
+        theta = lr_gd_step(X1, y, theta, 1e-6)
+        theta_vals.append(theta)
+    
+    error = np.mean(np.square(X1 @ theta - y))
+    print(theta_vals, error)
 
 if __name__ == "__main__":
     main()
