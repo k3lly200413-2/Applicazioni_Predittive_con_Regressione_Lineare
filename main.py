@@ -249,7 +249,26 @@ def main():
     
     # Concatenates an array of 1 shaped like the columns of x and rows 1 as well as the rest of x which doesn't have MEDV
     X1 = np.c_[np.ones((x.shape[0], 1)), x]
+
+    theta = np.zeros(1 + x.shape[1])
     
+    theta[0] = housing["MEDV"].mean()
+    
+    # this is theta0 + x ° rest of theta
+    
+    theta[0] + x[0] @ theta[1:]
+    
+    # we can also use 
+    # X1[0] @ theta#
+    
+    print(theta)
+    
+    # theta[:, None] = vettore theta convertito a matrice colonna
+    print(X1[:5] @ theta[:, None])
+    
+    # could also be 
+    
+    # X1[:5] @ theta # Used to calculate multiple lines
 
 if __name__ == "__main__":
     main()
